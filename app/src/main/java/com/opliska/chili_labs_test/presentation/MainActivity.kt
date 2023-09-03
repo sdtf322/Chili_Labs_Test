@@ -1,4 +1,4 @@
-package com.opliska.chili_labs_test
+package com.opliska.chili_labs_test.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/imageFragment"
-        android:name="com.opliska.chili_labs_test.ImageFragment"
+        android:name="com.opliska.chili_labs_test.presentation.ImageFragment"
         android:label="ImageFragment" />
 </navigation>

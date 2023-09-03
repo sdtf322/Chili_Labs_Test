@@ -1,4 +1,4 @@
-package com.opliska.chili_labs_test
+package com.opliska.chili_labs_test.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.opliska.chili_labs_test.R
 import com.opliska.chili_labs_test.data.ImageModel
 import com.opliska.chili_labs_test.databinding.FragmentImageBinding
 
