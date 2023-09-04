@@ -4,5 +4,5 @@ import com.opliska.chili_labs_test.data.DataObject
 
 interface ImageRepository {
 
-    suspend fun getImageList(): List<DataObject>
+    suspend fun getImageList(userQuery: String): List<DataObject>
 }

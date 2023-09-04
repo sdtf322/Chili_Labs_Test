@@ -5,7 +5,7 @@ import java.lang.Exception
 
 private const val RETROFIT = "Retrofit"
 
-class ImageNetworkData(private val userQuery: String) : ImageApi {
+class ImageNetworkData() : ImageApi {
 
     override suspend fun getSearchResult(
         apiKey: String,
@@ -16,7 +16,7 @@ class ImageNetworkData(private val userQuery: String) : ImageApi {
         language: String,
         bundle: String
     ): DataResult {
-        return RetrofitInstance.api.getSearchResult(query = userQuery)
+        return RetrofitInstance.api.getSearchResult(query = query)
     }
 }
 

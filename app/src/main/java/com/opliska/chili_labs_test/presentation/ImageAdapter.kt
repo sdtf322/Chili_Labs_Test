@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.opliska.chili_labs_test.data.DataObject
+import com.opliska.chili_labs_test.data.ImageModel
 import com.opliska.chili_labs_test.databinding.ItemImageBinding
 
-class ImageAdapter : ListAdapter<DataObject, ImageAdapter.ImageViewHolder>(ImageItemDiffCallback()) {
+class ImageAdapter : ListAdapter<ImageModel, ImageAdapter.ImageViewHolder>(ImageItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -24,20 +24,20 @@ class ImageAdapter : ListAdapter<DataObject, ImageAdapter.ImageViewHolder>(Image
 
     inner class ImageViewHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DataObject) {
+        fun bind(item: ImageModel) {
             // Load the image using Glide or your preferred image loading library
             Glide.with(itemView.context)
-                .load(item.images.imageModel.url)
+                .load(item.url)
                 .into(binding.imageItem)
         }
     }
 
-    private class ImageItemDiffCallback : DiffUtil.ItemCallback<DataObject>() {
-        override fun areItemsTheSame(oldItem: DataObject, newItem: DataObject): Boolean {
-            return oldItem.images.imageModel.url == newItem.images.imageModel.url
+    private class ImageItemDiffCallback : DiffUtil.ItemCallback<ImageModel>() {
+        override fun areItemsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
+            return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: DataObject, newItem: DataObject): Boolean {
+        override fun areContentsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
             return oldItem == newItem
         }
     }

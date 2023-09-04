@@ -1,39 +1,34 @@
 package com.opliska.chili_labs_test.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.opliska.chili_labs_test.data.ImageModel
+import com.opliska.chili_labs_test.data.repository.ImageRepositoryImpl
+import com.opliska.chili_labs_test.domain.GetImageListUseCase
+import com.opliska.chili_labs_test.domain.ImageRepository
 import retrofit2.HttpException
 import java.io.IOException
 
-
-//Todo Send UseCase here
 class ImageViewModel : ViewModel() {
-    private val inputSizeMutableLiveData = MutableLiveData<String>()
 
-    val inputSizeLiveData: LiveData<String> = inputSizeMutableLiveData
+    private val mutableLiveDataImageList = MutableLiveData<List<ImageModel>>()
 
+    private val getImageListUseCase: GetImageListUseCase by lazy { GetImageListUseCase() }
 
+    var liveDataImageList: LiveData<List<ImageModel>> = mutableLiveDataImageList
 
-    fun setUserSearch(userInput: String) {
-        inputSizeMutableLiveData.value = userInput
+    suspend fun getImageList(userInput: String) {
+
+        try {
+            val imageList = getImageListUseCase(userInput)
+            mutableLiveDataImageList.postValue(imageList)
+            liveDataImageList = mutableLiveDataImageList
+        } catch (e: IOException) {
+            println(e.message)
+        } catch (e: HttpException) {
+            println(e.message)
+        }
     }
 }
-
-//private val mutableRaceModelList = MutableLiveData<List<RaceModel>>()
-//
-//suspend fun getAllRaces() {
-//
-//    try {
-//        val raceModelList = getRaceListUseCase()
-//        mutableRaceModelList.postValue(raceModelList)
-//    } catch(e: IOException) {
-//        println(e.message)
-//    } catch(e: HttpException) {
-//        println(e.message())
-//    }
-//}
-//
-//fun getLiveData() : LiveData<List<RaceModel>> {
-//    return mutableRaceModelList
-//}

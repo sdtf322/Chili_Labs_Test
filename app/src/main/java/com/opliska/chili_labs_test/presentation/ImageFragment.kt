@@ -5,17 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.opliska.chili_labs_test.R
-import com.opliska.chili_labs_test.data.ImageModel
 import com.opliska.chili_labs_test.databinding.FragmentImageBinding
+import kotlinx.coroutines.runBlocking
 
 class ImageFragment : Fragment() {
+
+    private lateinit var imageViewModel: ImageViewModel
 
     private var _binding: FragmentImageBinding? = null
     private val binding get() = _binding!!
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,18 +41,21 @@ class ImageFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = imageAdapter
 
-        val imageList: ArrayList<ImageModel> = arrayListOf()
-        imageList.add(ImageModel(imageSource = R.drawable.verstappen))
-        imageList.add(ImageModel(imageSource = R.drawable.hamilton))
-        imageList.add(ImageModel(imageSource = R.drawable.alonso))
-        imageList.add(ImageModel(imageSource = R.drawable.verstappenpng))
+        imageViewModel = ViewModelProvider(this)[ImageViewModel::class.java]
 
-        imageAdapter.submitList(imageList)
+        imageViewModel.liveDataImageList.observe(viewLifecycleOwner, Observer { newImageList ->
+            imageAdapter.submitList(newImageList)
+        })
+        runBlocking {
+            imageViewModel.getImageList("Formula 1")
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 }

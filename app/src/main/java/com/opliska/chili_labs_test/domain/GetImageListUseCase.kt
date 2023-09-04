@@ -1,23 +1,21 @@
 package com.opliska.chili_labs_test.domain
 
+import com.opliska.chili_labs_test.data.ImageModel
 import com.opliska.chili_labs_test.data.repository.ImageRepositoryImpl
 
 class GetImageListUseCase() {
+    suspend operator fun invoke(userInput: String): List<ImageModel> {
 
+        val imageRepository = ImageRepositoryImpl()
 
+        val imageRepositoryImageList = imageRepository.getImageList(userQuery = userInput)
 
-    suspend operator fun invoke(): List<String> {
-
-        val imageRepositoryImageList = imageRepository.getImageList()
-
-        val imageList: ArrayList<String> = arrayListOf()
+        val imageList: ArrayList<ImageModel> = arrayListOf()
 
         imageRepositoryImageList.forEach {
-            imageList.add(it.images.imageModel.url)
+            imageList.add(it.images.imageModel)
         }
-
-        return imageList
-
         //returns list of URLs
+        return imageList
     }
 }

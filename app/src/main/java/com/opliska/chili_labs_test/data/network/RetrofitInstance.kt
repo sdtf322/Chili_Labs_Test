@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    private const val BASE_URL = "https://api.giphy.com/v1"
+    private const val BASE_URL = "https://api.giphy.com/v1/"
 
     val api: ImageApi by lazy {
 
