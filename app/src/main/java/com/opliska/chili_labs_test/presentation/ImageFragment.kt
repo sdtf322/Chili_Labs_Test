@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.opliska.chili_labs_test.databinding.FragmentImageBinding
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class ImageFragment : Fragment() {
@@ -46,8 +48,9 @@ class ImageFragment : Fragment() {
         imageViewModel.liveDataImageList.observe(viewLifecycleOwner, Observer { newImageList ->
             imageAdapter.submitList(newImageList)
         })
-        runBlocking {
-            imageViewModel.getImageList("Formula 1")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            imageViewModel.getImageList("oppenheimer")
         }
     }
 

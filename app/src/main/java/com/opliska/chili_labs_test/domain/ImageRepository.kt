@@ -1,6 +1,6 @@
 package com.opliska.chili_labs_test.domain
 
-import com.opliska.chili_labs_test.data.DataObject
+import com.opliska.chili_labs_test.data.models.DataObject
 
 interface ImageRepository {
 

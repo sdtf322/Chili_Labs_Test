@@ -1,6 +1,6 @@
 package com.opliska.chili_labs_test.domain
 
-import com.opliska.chili_labs_test.data.ImageModel
+import com.opliska.chili_labs_test.data.models.ImageModel
 import com.opliska.chili_labs_test.data.repository.ImageRepositoryImpl
 
 class GetImageListUseCase() {

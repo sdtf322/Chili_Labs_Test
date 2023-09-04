@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.opliska.chili_labs_test.data.ImageModel
+import com.opliska.chili_labs_test.data.models.ImageModel
 import com.opliska.chili_labs_test.databinding.ItemImageBinding
 
 class ImageAdapter : ListAdapter<ImageModel, ImageAdapter.ImageViewHolder>(ImageItemDiffCallback()) {

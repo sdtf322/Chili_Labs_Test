@@ -1,7 +1,6 @@
 package com.opliska.chili_labs_test.data.repository
 
-import com.opliska.chili_labs_test.data.DataObject
-import com.opliska.chili_labs_test.data.network.ImageApi
+import com.opliska.chili_labs_test.data.models.DataObject
 import com.opliska.chili_labs_test.data.network.ImageNetworkData
 import com.opliska.chili_labs_test.domain.ImageRepository
 

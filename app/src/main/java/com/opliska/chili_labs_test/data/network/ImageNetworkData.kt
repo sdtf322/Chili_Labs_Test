@@ -1,7 +1,6 @@
 package com.opliska.chili_labs_test.data.network
 
-import com.opliska.chili_labs_test.data.DataResult
-import java.lang.Exception
+import com.opliska.chili_labs_test.data.models.DataResult
 
 private const val RETROFIT = "Retrofit"
 

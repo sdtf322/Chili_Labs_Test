@@ -1,10 +1,7 @@
 package com.opliska.chili_labs_test.data.network
 
-import android.provider.ContactsContract.Data
 import com.opliska.chili_labs_test.BuildConfig
-import com.opliska.chili_labs_test.data.DataResult
-import retrofit2.Callback
-import retrofit2.Response
+import com.opliska.chili_labs_test.data.models.DataResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 

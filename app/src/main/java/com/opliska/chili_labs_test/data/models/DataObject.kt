@@ -1,4 +1,4 @@
-package com.opliska.chili_labs_test.data
+package com.opliska.chili_labs_test.data.models
 
 import com.google.gson.annotations.SerializedName
 
