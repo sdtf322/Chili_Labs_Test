@@ -10,14 +10,16 @@ import java.io.IOException
 
 class ImageViewModel : ViewModel() {
 
-    private val mutableLiveDataImageList = MutableLiveData<List<ImageModel>>()
-
     private val getImageListUseCase: GetImageListUseCase by lazy { GetImageListUseCase() }
 
+
+    private var mutableLiveDataImageList = MutableLiveData<List<ImageModel>>()
     var liveDataImageList: LiveData<List<ImageModel>> = mutableLiveDataImageList
 
-    suspend fun getImageList(userInput: String) {
+    private var mutableLiveDataUserInput = MutableLiveData<String>()
+    var liveDataUserInput: LiveData<String> = mutableLiveDataUserInput
 
+    suspend fun getImageList(userInput: String) {
         try {
             val imageList = getImageListUseCase(userInput)
             mutableLiveDataImageList.postValue(imageList)

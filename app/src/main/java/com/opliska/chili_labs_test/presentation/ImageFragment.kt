@@ -1,9 +1,13 @@
 package com.opliska.chili_labs_test.presentation
 
 import android.os.Bundle
+import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +25,9 @@ class ImageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
+
+    private val handler = Handler()
+    private val delayMillis = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +56,18 @@ class ImageFragment : Fragment() {
             imageAdapter.submitList(newImageList)
         })
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            imageViewModel.getImageList("oppenheimer")
+        binding.etQuery.addTextChangedListener { editable ->
+            handler.removeCallbacksAndMessages(null)
+
+            handler.postDelayed({
+                val userInput = editable.toString().trim()
+
+                if (userInput.isNotEmpty()) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        imageViewModel.getImageList(userInput)
+                    }
+                }
+            }, delayMillis)
         }
     }
 
@@ -59,6 +76,28 @@ class ImageFragment : Fragment() {
         _binding = null
     }
 
-
-
+//    private fun setupEditTextListener() {
+//
+//        binding.etQuery.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                // Remove any existing callbacks from the handler
+//                handler.removeCallbacksAndMessages(null)
+//
+//                // Schedule a new callback after the delay
+//                handler.postDelayed({
+//                    val userInput = s.toString().trim()
+//
+//                    if (userInput.isNotEmpty()) {
+//                        // Make a network call here
+//                        // Replace this with your actual network call code
+//                        imageViewModel.getImageList(userInput)
+//                    }
+//                }, delayMillis)
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {}
+//        })
+//    }
 }
