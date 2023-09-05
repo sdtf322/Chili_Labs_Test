@@ -2,6 +2,7 @@ package com.opliska.chili_labs_test.presentation
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -26,7 +27,7 @@ class ImageFragment : Fragment() {
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
 
-    private val handler = Handler()
+    private val handler = Handler(Looper.getMainLooper())
     private val delayMillis = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,29 +76,4 @@ class ImageFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-//    private fun setupEditTextListener() {
-//
-//        binding.etQuery.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                // Remove any existing callbacks from the handler
-//                handler.removeCallbacksAndMessages(null)
-//
-//                // Schedule a new callback after the delay
-//                handler.postDelayed({
-//                    val userInput = s.toString().trim()
-//
-//                    if (userInput.isNotEmpty()) {
-//                        // Make a network call here
-//                        // Replace this with your actual network call code
-//                        imageViewModel.getImageList(userInput)
-//                    }
-//                }, delayMillis)
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {}
-//        })
-//    }
 }
