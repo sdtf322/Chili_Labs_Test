@@ -75,5 +75,6 @@ class ImageFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        handler.removeCallbacksAndMessages(null)
     }
 }
