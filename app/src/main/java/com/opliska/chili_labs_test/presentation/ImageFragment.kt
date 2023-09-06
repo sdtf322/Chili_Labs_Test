@@ -2,13 +2,12 @@ package com.opliska.chili_labs_test.presentation
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -22,16 +21,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ImageFragment : Fragment() {
 
-    private lateinit var imageViewModel: ImageViewModel
-
-    private var _binding: FragmentImageBinding? = null
-    private val binding get() = _binding!!
-
     @Inject
     lateinit var imageAdapter: ImageAdapter
 
     @Inject
     lateinit var handler: Handler
+
+    private val imageViewModel by viewModels<ImageViewModel>()
+
+    private var _binding: FragmentImageBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +48,6 @@ class ImageFragment : Fragment() {
         val layoutManager = GridLayoutManager(requireActivity(), 2)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = imageAdapter
-
-        imageViewModel = ViewModelProvider(this)[ImageViewModel::class.java]
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

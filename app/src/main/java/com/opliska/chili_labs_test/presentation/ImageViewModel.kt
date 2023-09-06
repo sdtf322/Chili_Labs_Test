@@ -8,11 +8,12 @@ import com.opliska.chili_labs_test.domain.GetImageListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
 @HiltViewModel
-class ImageViewModel : ViewModel() {
-
-    private val getImageListUseCase: GetImageListUseCase by lazy { GetImageListUseCase() }
+class ImageViewModel @Inject constructor(
+    private val imageListUseCase: GetImageListUseCase
+) : ViewModel() {
 
     private var offset = 0
 
@@ -26,7 +27,7 @@ class ImageViewModel : ViewModel() {
         if(userInput.isNotEmpty()) {
             try {
                 offset = 0
-                val imageList = getImageListUseCase(userInput, offset)
+                val imageList = imageListUseCase(userInput, offset)
 
                 mutableLiveDataImageList.postValue(imageList)
                 liveDataImageList = mutableLiveDataImageList
@@ -42,7 +43,7 @@ class ImageViewModel : ViewModel() {
     suspend fun addOffsetItems() {
         if(userInput.isNotEmpty()) {
             try {
-                val imageList = getImageListUseCase(userInput, offset)
+                val imageList = imageListUseCase(userInput, offset)
                 val currentList = mutableLiveDataImageList.value.orEmpty()
                 val updatedList = currentList + imageList
 

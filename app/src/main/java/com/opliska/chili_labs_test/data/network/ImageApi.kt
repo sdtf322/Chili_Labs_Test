@@ -5,9 +5,6 @@ import com.opliska.chili_labs_test.data.models.DataResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
-// api.giphy.com/v1/gifs/search?api_key=
-
 const val API_KEY = BuildConfig.API_KEY
 
 interface ImageApi {
@@ -20,7 +17,6 @@ interface ImageApi {
         @Query("offset") offset: Int, // Optional offset
         @Query("rating") rating: String = "g", // age rating
         @Query("lang") language: String = "en",
-        @Query("bundle") bundle: String = "messaging_non_clips",
-
+        @Query("bundle") bundle: String = "messaging_non_clips"
     ): DataResult
 }
