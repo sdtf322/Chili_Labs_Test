@@ -1,7 +1,7 @@
 package com.opliska.chili_labs_test.di
 
 import com.opliska.chili_labs_test.data.network.ImageApi
-import com.opliska.chili_labs_test.data.network.ImageNetworkData
+import com.opliska.chili_labs_test.data.network.ImageApiService
 import com.opliska.chili_labs_test.data.repository.ImageRepositoryImpl
 import com.opliska.chili_labs_test.domain.GetImageListUseCase
 import com.opliska.chili_labs_test.domain.ImageRepository
@@ -20,12 +20,12 @@ class ViewModelModule {
     }
 
     @Provides
-    fun provideImageRepository(imageApi: ImageNetworkData): ImageRepository {
+    fun provideImageRepository(imageApi: ImageApiService): ImageRepository {
         return ImageRepositoryImpl(imageApi)
     }
 
     @Provides
     fun provideImageApi() : ImageApi {
-        return ImageNetworkData()
+        return ImageApiService()
     }
 }
