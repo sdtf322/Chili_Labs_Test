@@ -20,38 +20,47 @@ class ImageViewModel : ViewModel() {
     private var mutableLiveDataUserInput = MutableLiveData<String>()
     var liveDataUserInput: LiveData<String> = mutableLiveDataUserInput
 
-    //Loads image list with new user query
-    suspend fun getNewImageList(userInput: String) {
-        try {
-            offset = 0
-            val imageList = getImageListUseCase(userInput, offset)
+    private lateinit var userInput: String
 
-            mutableLiveDataImageList.postValue(imageList)
-            liveDataImageList = mutableLiveDataImageList
-        } catch (e: IOException) {
-            println(e.message)
-        } catch (e: HttpException) {
-            println(e.message)
+    //Loads image list with new user query
+    suspend fun getNewImageList() {
+        if(userInput.isNotEmpty()) {
+            try {
+                offset = 0
+                val imageList = getImageListUseCase(userInput, offset)
+
+                mutableLiveDataImageList.postValue(imageList)
+                liveDataImageList = mutableLiveDataImageList
+            } catch (e: IOException) {
+                println(e.message)
+            } catch (e: HttpException) {
+                println(e.message)
+            }
         }
     }
 
     //Adds more items to current search query
-    suspend fun addOffsetItems(userInput: String) {
-        try {
-            val imageList = getImageListUseCase(userInput, offset)
+    suspend fun addOffsetItems() {
+        if(userInput.isNotEmpty()) {
+            try {
+                val imageList = getImageListUseCase(userInput, offset)
+                val currentList = mutableLiveDataImageList.value.orEmpty()
+                val updatedList = currentList + imageList
 
-            val currentList = mutableLiveDataImageList.value.orEmpty()
-            val updatedList = currentList + imageList
+                mutableLiveDataImageList.postValue(updatedList)
 
-            mutableLiveDataImageList.postValue(updatedList)
+                offset += 20
 
-            offset += 20
-
-            liveDataImageList = mutableLiveDataImageList
-        } catch (e: IOException) {
-            println(e.message)
-        } catch (e: HttpException) {
-            println(e.message)
+                liveDataImageList = mutableLiveDataImageList
+            } catch (e: IOException) {
+                println(e.message)
+            } catch (e: HttpException) {
+                println(e.message)
+            }
         }
+    }
+
+    fun setUserInput(editTextValue: String) {
+        userInput = editTextValue
     }
 }

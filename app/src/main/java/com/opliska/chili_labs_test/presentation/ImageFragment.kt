@@ -55,11 +55,8 @@ class ImageFragment : Fragment() {
                 val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
                 if (visibleItemCount + firstVisibleItemPosition + THRESHOLD >= totalItemCount && firstVisibleItemPosition >= 0) {
-                    val userInput = binding.etQuery.text.toString().trim()
-                    if (userInput.isNotEmpty()) {
-                        viewLifecycleOwner.lifecycleScope.launch {
-                            imageViewModel.addOffsetItems(userInput)
-                        }
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        imageViewModel.addOffsetItems()
                     }
                 }
             }
@@ -71,14 +68,11 @@ class ImageFragment : Fragment() {
 
         binding.etQuery.addTextChangedListener { editable ->
             handler.removeCallbacksAndMessages(null)
-
             handler.postDelayed({
-                val userInput = editable.toString().trim()
+                imageViewModel.setUserInput(editable.toString().trim())
 
-                if (userInput.isNotEmpty()) {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        imageViewModel.getNewImageList(userInput)
-                    }
+                viewLifecycleOwner.lifecycleScope.launch {
+                    imageViewModel.getNewImageList()
                 }
             }, delayMillis)
         }
