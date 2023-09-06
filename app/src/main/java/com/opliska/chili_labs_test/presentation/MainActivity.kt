@@ -5,7 +5,9 @@ import android.os.Bundle
 import com.opliska.chili_labs_test.databinding.ActivityMainBinding
 import com.opliska.chili_labs_test.databinding.ActivityMainBinding.bind
 import com.opliska.chili_labs_test.databinding.ActivityMainBinding.inflate
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding  // Declare the binding variable

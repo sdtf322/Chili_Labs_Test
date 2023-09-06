@@ -15,8 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.opliska.chili_labs_test.databinding.FragmentImageBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ImageFragment : Fragment() {
 
     private lateinit var imageViewModel: ImageViewModel
@@ -24,9 +27,11 @@ class ImageFragment : Fragment() {
     private var _binding: FragmentImageBinding? = null
     private val binding get() = _binding!!
 
-    private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
+    @Inject
+    lateinit var imageAdapter: ImageAdapter
 
-    private val handler by lazy { Handler(Looper.getMainLooper()) }
+    @Inject
+    lateinit var handler: Handler
 
     override fun onCreateView(
         inflater: LayoutInflater,

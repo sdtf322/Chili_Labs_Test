@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.opliska.chili_labs_test.data.models.ImageModel
 import com.opliska.chili_labs_test.domain.GetImageListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.HttpException
 import java.io.IOException
 
+@HiltViewModel
 class ImageViewModel : ViewModel() {
 
     private val getImageListUseCase: GetImageListUseCase by lazy { GetImageListUseCase() }
@@ -16,9 +18,6 @@ class ImageViewModel : ViewModel() {
 
     private var mutableLiveDataImageList = MutableLiveData<List<ImageModel>>()
     var liveDataImageList: LiveData<List<ImageModel>> = mutableLiveDataImageList
-
-    private var mutableLiveDataUserInput = MutableLiveData<String>()
-    var liveDataUserInput: LiveData<String> = mutableLiveDataUserInput
 
     private lateinit var userInput: String
 
