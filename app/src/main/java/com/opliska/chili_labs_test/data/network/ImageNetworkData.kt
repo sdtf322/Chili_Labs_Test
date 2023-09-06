@@ -9,13 +9,13 @@ class ImageNetworkData() : ImageApi {
     override suspend fun getSearchResult(
         apiKey: String,
         query: String,
-        limit: String,
-        offset: String,
+        limit: Int,
+        offset: Int,
         rating: String,
         language: String,
         bundle: String
     ): DataResult {
-        return RetrofitInstance.api.getSearchResult(query = query)
+        return RetrofitInstance.api.getSearchResult(query = query, offset = offset)
     }
 }
 

@@ -3,8 +3,7 @@ package com.opliska.chili_labs_test.presentation
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.opliska.chili_labs_test.databinding.FragmentImageBinding
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ImageFragment : Fragment() {
 
@@ -27,12 +26,7 @@ class ImageFragment : Fragment() {
 
     private val imageAdapter: ImageAdapter by lazy { ImageAdapter() }
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val delayMillis = 1000L
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +47,24 @@ class ImageFragment : Fragment() {
 
         imageViewModel = ViewModelProvider(this)[ImageViewModel::class.java]
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                if (visibleItemCount + firstVisibleItemPosition + THRESHOLD >= totalItemCount && firstVisibleItemPosition >= 0) {
+                    val userInput = binding.etQuery.text.toString().trim()
+                    if (userInput.isNotEmpty()) {
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            imageViewModel.addOffsetItems(userInput)
+                        }
+                    }
+                }
+            }
+        })
+
         imageViewModel.liveDataImageList.observe(viewLifecycleOwner, Observer { newImageList ->
             imageAdapter.submitList(newImageList)
         })
@@ -65,7 +77,7 @@ class ImageFragment : Fragment() {
 
                 if (userInput.isNotEmpty()) {
                     viewLifecycleOwner.lifecycleScope.launch {
-                        imageViewModel.getImageList(userInput)
+                        imageViewModel.getNewImageList(userInput)
                     }
                 }
             }, delayMillis)
@@ -76,5 +88,10 @@ class ImageFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         handler.removeCallbacksAndMessages(null)
+    }
+
+    companion object {
+        private const val delayMillis = 500L
+        private const val THRESHOLD = 5
     }
 }

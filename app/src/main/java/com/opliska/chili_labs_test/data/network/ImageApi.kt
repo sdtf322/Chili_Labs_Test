@@ -16,8 +16,8 @@ interface ImageApi {
     suspend fun getSearchResult(
         @Query("api_key") apiKey: String = API_KEY,
         @Query("q") query: String,
-        @Query("limit") limit: String = "10", //Maximum amount of loaded GIFs
-        @Query("offset") offset: String = "0", // Optional offset
+        @Query("limit") limit: Int = 20, //Maximum amount of loaded GIFs
+        @Query("offset") offset: Int, // Optional offset
         @Query("rating") rating: String = "g", // age rating
         @Query("lang") language: String = "en",
         @Query("bundle") bundle: String = "messaging_non_clips",
