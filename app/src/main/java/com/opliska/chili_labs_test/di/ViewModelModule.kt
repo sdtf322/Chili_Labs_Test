@@ -20,7 +20,7 @@ class ViewModelModule {
     }
 
     @Provides
-    fun provideImageRepository(imageApi: ImageApiService): ImageRepository {
+    fun provideImageRepository(imageApi: ImageApi): ImageRepository {
         return ImageRepositoryImpl(imageApi)
     }
 

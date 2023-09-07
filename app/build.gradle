@@ -45,6 +45,11 @@ android {
 
 dependencies {
 
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     def nav_version = "2.6.0"
     def glide_version = "4.16.0"
     def gson_version = "2.9.0"
@@ -59,7 +64,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //Jetpack Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -75,6 +79,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
