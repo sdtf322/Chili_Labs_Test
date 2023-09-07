@@ -5,6 +5,8 @@
 
 ### Stack which was used:
 
++ Kotlin
++ XML
 + MVVM
 + Jetpack Navigation
 + Glide
