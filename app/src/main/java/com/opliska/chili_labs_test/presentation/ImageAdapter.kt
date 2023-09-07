@@ -25,7 +25,6 @@ class ImageAdapter : ListAdapter<ImageModel, ImageAdapter.ImageViewHolder>(Image
     inner class ImageViewHolder(private val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ImageModel) {
-            // Load the image using Glide or your preferred image loading library
             Glide.with(itemView.context)
                 .load(item.url)
                 .into(binding.imageItem)

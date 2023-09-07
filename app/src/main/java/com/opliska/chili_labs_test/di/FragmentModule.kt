@@ -11,7 +11,6 @@ import dagger.hilt.android.components.FragmentComponent
 @Module
 @InstallIn(FragmentComponent::class)
 class FragmentModule {
-
     @Provides
     fun provideImageAdapter(): ImageAdapter {
         return ImageAdapter()

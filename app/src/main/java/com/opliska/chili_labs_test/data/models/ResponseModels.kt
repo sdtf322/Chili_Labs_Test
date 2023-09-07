@@ -20,13 +20,3 @@ data class DataResult(
 data class ImageModel(
     val url: String
 )
-
-data class MetaResult(
-    @SerializedName("meta")
-    val result: MetaInfo
-)
-data class MetaInfo(
-    val msg: String,
-    val response_id: String,
-    val status: Int
-)

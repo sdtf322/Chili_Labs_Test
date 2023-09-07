@@ -13,7 +13,7 @@ class GetImageListUseCase @Inject constructor(private val imageRepository: Image
         dataObjectList.forEach {
             imageList.add(it.images.imageModel)
         }
-        //returns list of URLs
+
         return imageList
     }
 }
